@@ -9,7 +9,7 @@ import { HttpException } from '@nestjs/common';
 export class CatsRepository {
   constructor(@InjectModel(Cat.name) private readonly catModel: Model<Cat>) {}
 
-  async existsByEmail(email: string) {
+  async existsByEmail(email: string): Promise<{ _id: any }> {
     try {
       const result = await this.catModel.exists({ email });
       return result;
@@ -20,5 +20,10 @@ export class CatsRepository {
 
   async create(cat: CatRequestDto): Promise<Cat> {
     return await this.catModel.create(cat);
+  }
+
+  async findCatByEmail(email: string): Promise<Cat | null> {
+    const cat = await this.catModel.findOne({ email });
+    return cat;
   }
 }
