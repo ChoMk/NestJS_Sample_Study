@@ -5,6 +5,7 @@ import { CatsRepository } from './cats.repository';
 @Injectable()
 export class CatsService {
   constructor(private readonly catsRepository: CatsRepository) {}
+
   async signUp(body: CatRequestDto) {
     const { email, name, password } = body;
     const isCatExist = await this.catsRepository.existsByEmail(email);
