@@ -5,14 +5,14 @@ import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer
 
 const createFolder = (folder: string) => {
   try {
-    console.log('create a root uploads folder');
+    console.log('create a root upload folder');
     fs.mkdirSync(path.join(__dirname, '..', 'upload'));
   } catch (error) {
     console.log('the folder already exists...');
   }
   try {
-    console.log('create a ${folder} uploads folder...');
-    fs.mkdirSync(path.join(__dirname, '..', `uploads/${folder}`));
+    console.log(`create a ${folder} uploads folder...`);
+    fs.mkdirSync(path.join(__dirname, '..', `upload/${folder}`));
   } catch (error) {
     console.log(`the ${folder} folder already exists..`);
   }
@@ -22,7 +22,7 @@ const storage = (folder: string): multer.StorageEngine => {
   createFolder(folder);
   return multer.diskStorage({
     destination(req, file, callback) {
-      const folderName = path.join(__dirname, '..', `uploads/${folder}`);
+      const folderName = path.join(__dirname, '..', `upload/${folder}`);
       callback(null, folderName);
     },
     filename(req, file, callback) {
