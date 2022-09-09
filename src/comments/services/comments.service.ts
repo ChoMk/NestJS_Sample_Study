@@ -27,11 +27,11 @@ export class CommentsService {
       );
       const { contents, author } = comments;
       const validatedAuthor =
-        await this.catsRepository.findCatByIdWithoutPassword(author.toString);
+        await this.catsRepository.findCatByIdWithoutPassword(author);
       const newComment = new this.commentsModel({
         author: validatedAuthor._id,
         contents,
-        info: targetCat,
+        info: targetCat._id,
       });
       return await newComment.save();
     } catch (error) {

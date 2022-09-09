@@ -30,6 +30,6 @@ export class CommentsController {
   })
   @Patch(':id')
   async plusLike(@Param('id') id: string) {
-    return this.commentsService, this.plusLike(id);
+    return this.commentsService.plusLike(id);
   }
 }
