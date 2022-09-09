@@ -2,7 +2,7 @@ import { CatRequestDto } from './dto/cats.request.dto';
 import { Cat } from './cats.schema';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { HttpException } from '@nestjs/common';
 
 @Injectable()
@@ -27,7 +27,9 @@ export class CatsRepository {
     return cat;
   }
 
-  async findCatByIdWithoutPassword(catId: string): Promise<Cat | null> {
+  async findCatByIdWithoutPassword(
+    catId: string | Types.ObjectId,
+  ): Promise<Cat | null> {
     const cat = await this.catModel.findById(catId).select('-password'); //password 빼고 갖고오기
     return cat;
   }
