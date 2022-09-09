@@ -28,7 +28,15 @@ export class CatsRepository {
   }
 
   async findCatByIdWithoutPassword(catId: string): Promise<Cat | null> {
-    const cat = await this.catModel.findById(catId).select('-password');//password 빼고 갖고오기
+    const cat = await this.catModel.findById(catId).select('-password'); //password 빼고 갖고오기
     return cat;
+  }
+
+  async findByIdAndUpdateImg(id: string, fileName: string) {
+    const cat = await this.catModel.findById(id);
+    cat.imgUrl = `http://localhost:8000/media/${fileName}`;
+    const newCat = await cat.save();
+    console.log(newCat);
+    return newCat.readOnlyData;
   }
 }

@@ -1,4 +1,4 @@
-import { CatsService } from './cats/cats.service';
+import { CatsService } from './cats/services/cats.service';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { CatsModule } from './cats/cats.module';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
