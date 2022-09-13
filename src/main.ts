@@ -6,6 +6,7 @@ import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import * as expressBasicAuth from 'express-basic-auth';
 import * as path from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import * as AWS from 'aws-sdk';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -28,6 +29,7 @@ async function bootstrap() {
     .setDescription('cat')
     .setVersion('1.0.0')
     .build();
+
   const document: OpenAPIObject = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
   app.enableCors({
