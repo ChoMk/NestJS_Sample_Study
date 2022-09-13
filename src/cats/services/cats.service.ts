@@ -3,6 +3,7 @@ import { CatRequestDto } from '../dtos/cats.request.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { CatsRepository } from '../cats.repository';
+
 @Injectable()
 export class CatsService {
   constructor(private readonly catsRepository: CatsRepository) {}
@@ -23,8 +24,8 @@ export class CatsService {
     return cat.readOnlyData;
   }
 
-  async uploadImg(cat: Cat, images: Express.Multer.File[]) {
-    const fileName = `cats/${images[0].filename}`;
+  async uploadImg(cat: Cat, images: Express.MulterS3.File[]) {
+    const fileName = `${images[0].key}`;
     console.log(fileName);
     const newCat = await this.catsRepository.findByIdAndUpdateImg(
       cat.id,

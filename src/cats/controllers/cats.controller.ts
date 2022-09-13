@@ -1,5 +1,6 @@
 import { Cat } from 'src/cats/cats.schema';
 import { multerOptions } from '../../common/utils/multer.options';
+import { multerS3Options } from '../../common/utils/multer.options';
 import { JwtAuthGuard } from '../../auth/jwt/jwt.guard';
 import { LoginRequestDto } from '../../auth/dto/login.request.dto';
 import { AuthService } from '../../auth/auth.service';
@@ -51,11 +52,11 @@ export class CatsController {
   }
 
   @ApiOperation({ summary: '고양이 이미지 업로드' })
-  @UseInterceptors(FilesInterceptor('images', 10, multerOptions('cats')))
+  @UseInterceptors(FilesInterceptor('images', 10, multerS3Options('cat')))
   @UseGuards(JwtAuthGuard)
   @Post('upload')
   uploadCatImg(
-    @UploadedFiles() images: Array<Express.Multer.File>,
+    @UploadedFiles() images: Array<Express.MulterS3.File>,
     @CurrentUser() cat: Cat,
   ) {
     return this.catsService.uploadImg(cat, images);
